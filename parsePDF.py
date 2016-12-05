@@ -4,15 +4,28 @@ given the nature of these pdfs, the various methods will probably all be
 hard coded to the specific pdf, so expect nothing pretty.
 
 This script is also just as much about teaching myself how to get text from
-pdfs, so that should explain why I'm doing this so ~meticulously~
+pdfs and other stuff, so that should explain why I'm doing this so... weirdly
 
 author: elias g
 version: 11.30.16
 """
 import PyPDF2 as PDF
+import nltk.data
 
-def extractSeduction():
-    
+def extractTXT(txtFile):
+    inputFile = open("../baudrillardBot/txt/{}".format(txtFile), "r")
+    data = inputFile.read()
+    inputFile.close()
+    print(data)
+    output = txtFile[:-3:] + "py"
+    # outputFile  = open("../baudrillardBot/output/{}".format(output), "w")
+
+    # detector = nltk.data.load(data)
+    # print(detector.tokenize(data, 'text'))
+    # outputFile.write(detector.tokenize(data))
+    # outputFile.close()
+
+
 
 def extractPerfectCrime():
     start = 5
@@ -29,4 +42,7 @@ def extractPerfectCrime():
     file.close()
 
 if __name__ == "__main__":
-    extractPerfectCrime()
+    # extractPerfectCrime()
+    print("Enter the name of your file to be read")
+    txtFile = input()
+    extractTXT(txtFile)
