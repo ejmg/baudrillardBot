@@ -16,7 +16,8 @@ SIMULATE, THIS.
 """
 
 # the books supported so far
-from output import (Seduction, PerfectCrime)
+from output.PerfectCrime import PERFECT_CRIME
+from output.Seduction import SEDUCTION
 from baudrillardSecret import (CONSUMER_TOKEN, CONSUMER_SECRET, ACCESS_TOKEN,
                                ACCESS_SECRET)
 
@@ -36,6 +37,37 @@ def setTwitterAuth():
     return api
 
 
+def getQuote():
+    randInt = random.randint(0, 1)
+    if randInt == 0:
+        quote = SEDUCTION[random.randint(0, len(SEDUCTION) - 1)]
+        cite = "Seduction"
+    elif randInt == 1:
+        quote = PERFECT_CRIME[random.randint(0, len(PERFECT_CRIME) - 1)]
+        cite = "The Perfect Crime"
+    return quote, cite
+
+
+def tweet(api, quote, cite):
+    # want to cite each quote, the three is for a space, dash, & another space
+    maxLength = 140 - len(cite) - 3
+    # size for a tweet that has an ellipsis
+    ellipsisLength = 140 - 3
+    if len(quote) >= maxLength:
+        tweet = quote[-maxLength::]
+        api.update_status("{} - {}".formate(tweet, cite))
+        quote = quote[:len(quote) - maxLength:]
+
+        while quote >= ellipsisLength:
+            tweet = quote[-ellipsisLength::]
+            api.update_status("{}...".format(tweet))
+            quote = quote[:len(quote) - ellipsisLength:]
+
+    else:
+        api.update_status("{} - {}".format(quote, cite))
+
+
 if __name__ == "__main__":
     api = setTwitterAuth()
-    
+    quote, cite = getQuote()
+    tweet(api, quote, cite)
