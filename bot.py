@@ -22,6 +22,7 @@ from baudrillardSecret import (CONSUMER_TOKEN, CONSUMER_SECRET, ACCESS_TOKEN,
                                ACCESS_SECRET)
 
 import arrow
+import nltk
 import random
 import tweepy as ty
 
@@ -53,14 +54,23 @@ def tweet(api, quote, cite):
     maxLength = 140 - len(cite) - 3
     # size for a tweet that has an ellipsis
     ellipsisLength = 140 - 3
+    finalTweet = "{} - {}"
+    ellipsisTweet = "{}..."
     if len(quote) >= maxLength:
-        tweet = quote[-maxLength::]
-        api.update_status("{} - {}".formate(tweet, cite))
+        tweets = []
+        words = nltk.word_tokenize(quote)
+        # this is arbitrary as hell. I think 7 words is a good number for the
+        # number of words to have in the last tweet of the quote
+        while len(words) > 7:
+            
+        # api.update_status(finalTweet.formate(tweet, cite))
         quote = quote[:len(quote) - maxLength:]
 
-        while quote >= ellipsisLength:
+        while len(quote) - ellipsisLength > 0:
+            
             tweet = quote[-ellipsisLength::]
-            api.update_status("{}...".format(tweet))
+            print(ellipsisTweet.format(tweet))
+            # api.update_status(ellipsisTweet.format(tweet))
             quote = quote[:len(quote) - ellipsisLength:]
 
     else:
