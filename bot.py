@@ -16,8 +16,8 @@ SIMULATE, THIS.
 """
 
 # the books supported so far
-from output.PerfectCrime import PERFECT_CRIME
-from output.Seduction import SEDUCTION
+from txtoutput.PerfectCrime import PERFECT_CRIME
+from txtoutput.Seduction import SEDUCTION
 from baudrillardSecret import (CONSUMER_TOKEN, CONSUMER_SECRET, ACCESS_TOKEN,
                                ACCESS_SECRET)
 

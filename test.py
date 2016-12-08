@@ -1,9 +1,9 @@
-from output.PerfectCrime import PERFECT_CRIME
-from output.Seduction import SEDUCTION
+from txtoutput.PerfectCrime import PERFECT_CRIME
+from txtoutput.Seduction import SEDUCTION
 from nltk import WhitespaceTokenizer
 import random
 from PIL import Image, ImageDraw, ImageFont
-
+import textwrap
 
 def getQuote():
     randInt = random.randint(0, 1)
@@ -63,12 +63,17 @@ def tweet(quote, cite):
 
 if __name__ == "__main__":
     quote, cite = getQuote()
-    img = Image.open("../baudrillardBot/draw/scratchPaper.png")
+    img = Image.open("../baudrillardBot/image/scratchPaper.png")
     x, y = img.size
     print(str(x))
     print(str(y))
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("../../../../../usr/share/fonts/truetype/"
                               "freefont/FreeMonoBold.ttf", 16)
-    draw.text((x/5, y/4), quote, (0, 0, 0), font=font)
+    lines = textwrap.wrap(quote, width=40)
+    y_text = y
+    for line in lines:
+        fx, fy = font.getsize(line)
+        draw.text(((fx - x) / 5, y_text/4), line, (0, 0, 0), font=font)
+        y_text += y
     img.save("../baudrillardBot/draw/sample.png")
