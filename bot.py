@@ -22,7 +22,7 @@ from baudrillardSecret import (CONSUMER_TOKEN, CONSUMER_SECRET, ACCESS_TOKEN,
                                ACCESS_SECRET)
 
 import arrow
-import nltk
+from nltk import WhitespaceTokenizer
 import random
 import tweepy as ty
 
@@ -50,31 +50,46 @@ def getQuote():
 
 
 def tweet(api, quote, cite):
-    # want to cite each quote, the three is for a space, dash, & another space
-    maxLength = 140 - len(cite) - 3
-    # size for a tweet that has an ellipsis
-    ellipsisLength = 140 - 3
-    finalTweet = "{} - {}"
+    print("in tweet")
+    citeTweet = "{} - {}"
     ellipsisTweet = "{}..."
-    if len(quote) >= maxLength:
+    maxSize = 140 - len(cite) - 3
+    ellipsisSize = 140 - 3
+    if len(quote) > maxSize:
+        print("in the first if check")
+        sentence = WhitespaceTokenizer().tokenize(quote)
+        print(sentence)
+        sentenceSize = len(sentence)
+        i = 0
+        done = False
         tweets = []
-        words = nltk.word_tokenize(quote)
-        # this is arbitrary as hell. I think 7 words is a good number for the
-        # number of words to have in the last tweet of the quote
-        while len(words) > 7:
-            
-        # api.update_status(finalTweet.formate(tweet, cite))
-        quote = quote[:len(quote) - maxLength:]
 
-        while len(quote) - ellipsisLength > 0:
-            
-            tweet = quote[-ellipsisLength::]
-            print(ellipsisTweet.format(tweet))
-            # api.update_status(ellipsisTweet.format(tweet))
-            quote = quote[:len(quote) - ellipsisLength:]
+        while not done:
+            print("in main while")
+            newTweet = ""
 
+            while ((len(newTweet + " " + sentence[i]) < ellipsisSize)
+                   and not done):
+                print("in inner while")
+                if i != sentenceSize - 7:
+                    newTweet += " " + sentence[i]
+                    i += 1
+                else:
+                    done = True
+            if not done:
+                tweets.append(ellipsisTweet.format(newTweet))
+            else:
+                tweets.append(ellipsisTweet.format(newTweet))
+                newTweet = ""
+                while i != sentenceSize:
+                    newTweet += " " + sentence[i]
+                    i += 1
+                tweets.append(citeTweet.format(newTweet, cite))
+        while tweets:
+            tweet = tweets.pop()
+            print(tweet)
     else:
-        api.update_status("{} - {}".format(quote, cite))
+        print(citeTweet.format(quote, cite))
 
 
 if __name__ == "__main__":
