@@ -20,10 +20,12 @@ def extractTXT(txtFile):
     inputFile = open("../baudrillardBot/txt/{}".format(txtFile), "r")
     data = inputFile.read()
     inputFile.close()
-    output = txtFile[:-3:] + "py"
-    outputFile  = open("../baudrillardBot/output/{}".format(output), "w")
+    var = txtFile[:-3:]
+    output = var + "py"
+    outputFile  = open("../baudrillardBot/txtoutput/{}".format(output), "w")
 
     detector = nltk.data.load("nltk:tokenizers/punkt/PY3/english.pickle")
+    outputFile.writelines(var.upper() + " = ")
     outputFile.write(str(detector.tokenize(data)))
     outputFile.close()
 
