@@ -49,7 +49,7 @@ def getQuote():
     return quote, cite
 
 
-def tweet(api, quote, cite):
+def tweetTxt(api, quote, cite):
     print("in tweet")
     citeTweet = "{} - {}"
     ellipsisTweet = "{}..."
@@ -91,6 +91,9 @@ def tweet(api, quote, cite):
     else:
         print(citeTweet.format(quote, cite))
 
+
+def tweetImage():
+    
 
 if __name__ == "__main__":
     api = setTwitterAuth()

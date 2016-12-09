@@ -19,7 +19,7 @@ def getQuote():
     return quote, cite
 
 
-def tweet(quote, cite):
+def tweetTxt(quote, cite):
     print("in tweet")
     citeTweet = "{} - {}"
     ellipsisTweet = "{}..."
@@ -62,18 +62,46 @@ def tweet(quote, cite):
         print(citeTweet.format(quote, cite))
 
 
-if __name__ == "__main__":
-    quote, cite = getQuote()
-    img = Image.open("../baudrillardBot/images/scratchPaper.png")
+def tweetImage(api, quote, cite):
+    shortTweet = "{} - {}"
+    longTweet = "{}..."
+    maxSize = 140 - len(cite) - 3
+    longSize = 140 - 3
+    createImage(quote)
+    if len(quote) > maxSize:
+        words = WhitespaceTokenizer.tokenize(quote)
+        tweet = ""
+        done = False
+        i = 0
+        while not done:
+            if (len(tweet) + 1 + len(words[i])) < longSize:
+                tweet += words[i] + " "
+                i += 1
+            else:
+                tweet = tweet[:-1:]
+                done = True
+        
+
+    else:
+        
+
+
+def createImage(quote):
+    randInt = random.randint(0, 3)
+    img = Image.open("../baudrillardBot/images/{}.png".format(str(randInt)))
     x, y = img.size
-    print(str(x))
-    print(str(y))
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("../../../../../usr/share/fonts/truetype/liberation/LiberationMono-Italic.ttf", 16)
     lines = textwrap.wrap(quote, width=45)
     y_text = y
     for line in lines:
-        fx, fy = font.getsize(line)
-        draw.text((x / 6, y_text / 5), line, (0, 0, 0), font=font)
-        y_text += y_text/4
-    img.save("../baudrillardBot/draw/sample1.png")
+        draw.text((x / 7, y_text / 5), line, (0, 0, 0), font=font)
+        y_text += 100
+    img.save("../baudrillardBot/draw/output.png")
+
+
+
+if __name__ == "__main__":
+    quote, cite = getQuote()
+    # tweetTxt(quote, cite)
+    tweetImage(api, quote, cite)
