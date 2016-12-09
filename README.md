@@ -11,7 +11,8 @@ ask myself the question of its sociological verisimilitude - a question I would,
 indeed, find infinitely difficult to answer. Doubtless one should put oneself in
 the position of an imaginary traveller, who came upon these writings as if they
 were a lost manuscript and, for want of supporting documents, subsequently 
-strove to reconsitute the society they describe.* -- Passwords, "Introduction" pg ix.
+strove to reconsitute the society they describe.* 
+-- Passwords, "Introduction" pg ix.
 
 # A Symbolic Exchange
 What can social media do to someone who is already dead and yet mocks? If social
