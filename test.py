@@ -1,9 +1,22 @@
 from txtoutput.PerfectCrime import PERFECT_CRIME
 from txtoutput.Seduction import SEDUCTION
+from baudrillardSecret import (CONSUMER_TOKEN, CONSUMER_SECRET, ACCESS_TOKEN,
+                               ACCESS_SECRET)
 from nltk import WhitespaceTokenizer
 import random
 from PIL import Image, ImageDraw, ImageFont
 import textwrap
+import tweepy as ty
+
+def setTwitterAuth():
+    """
+    obtains authorization from twitter API
+    """
+    # sets the auth tokens for twitter using tweepy
+    auth = ty.OAuthHandler(CONSUMER_TOKEN, CONSUMER_SECRET)
+    auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
+    api = ty.API(auth)
+    return api
 
 
 def getQuote():
@@ -69,7 +82,7 @@ def tweetImage(api, quote, cite):
     longSize = 140 - 3
     createImage(quote)
     if len(quote) > maxSize:
-        words = WhitespaceTokenizer.tokenize(quote)
+        words = WhitespaceTokenizer().tokenize(quote)
         tweet = ""
         done = False
         i = 0
@@ -80,10 +93,12 @@ def tweetImage(api, quote, cite):
             else:
                 tweet = tweet[:-1:]
                 done = True
-        
+        api.update_with_media("../baudrillardBot/draw/output.png",
+                              status=longTweet.format(tweet))
 
     else:
-        
+        api.update_with_media("../baudrillardBot/draw/output.png",
+                              status=shortTweet.format(quote, cite))
 
 
 def createImage(quote):
@@ -91,7 +106,8 @@ def createImage(quote):
     img = Image.open("../baudrillardBot/images/{}.png".format(str(randInt)))
     x, y = img.size
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("../../../../../usr/share/fonts/truetype/liberation/LiberationMono-Italic.ttf", 16)
+    font = ImageFont.truetype("../../../../../usr/share/fonts/truetype/"
+                              "liberation/LiberationMono-Italic.ttf", 16)
     lines = textwrap.wrap(quote, width=45)
     y_text = y
     for line in lines:
@@ -102,6 +118,7 @@ def createImage(quote):
 
 
 if __name__ == "__main__":
+    api = setTwitterAuth()
     quote, cite = getQuote()
     # tweetTxt(quote, cite)
     tweetImage(api, quote, cite)
