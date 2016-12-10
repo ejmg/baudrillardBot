@@ -125,12 +125,15 @@ def tweetImage(api, quote, cite):
         done = False
         i = 0
         while not done:
-            if (len(tweet) + 1 + len(words[i])) < longSize:
-                tweet += words[i] + " "
-                i += 1
+            if i < len(words):
+                if (len(tweet) + 1 + len(words[i])) < longSize:
+                    tweet += words[i] + " "
+                    i += 1
+                else:
+                    done = True
             else:
-                tweet = tweet[:-1:]
                 done = True
+        tweet = tweet[:-1:]
         api.update_with_media("../baudrillardBot/draw/output.png",
                               status=longTweet.format(tweet))
 
