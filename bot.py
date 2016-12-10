@@ -19,6 +19,8 @@ SIMULATE, THIS.
 from txtoutput.PerfectCrime import PERFECT_CRIME
 from txtoutput.Seduction import SEDUCTION
 from txtoutput.EcstasyOfCommunication import ECSTASYOFCOMMUNICATION
+from txtoutput.SimulacraSimulation import SIMULACRASIMULATION
+# other imports
 from baudrillardSecret import (CONSUMER_TOKEN, CONSUMER_SECRET, ACCESS_TOKEN,
                                ACCESS_SECRET)
 from nltk import WhitespaceTokenizer
@@ -42,10 +44,9 @@ def setTwitterAuth():
 
 def getQuote():
     """
-    gets a quote from the dictionaries provided. So far only Seduction and
-    The Perfect Crime are included.
+    gets a quote from the dictionaries provided.
     """
-    randInt = random.randint(0, 2)
+    randInt = random.randint(0, 3)
     if randInt == 0:
         quote = SEDUCTION[random.randint(0, len(SEDUCTION) - 1)]
         cite = "Seduction"
@@ -56,6 +57,10 @@ def getQuote():
         quote = (ECSTASYOFCOMMUNICATION
                  [random.randint(0, len(ECSTASYOFCOMMUNICATION) - 1)])
         cite = "The Ecstasy of Communication"
+    elif randInt == 3:
+        quote = (SIMULACRASIMULATION[random.
+                                     randint(0, len(SIMULACRASIMULATION) - 1)])
+        cite = "Simulacra and Simulation"
     return quote, cite
 
 
