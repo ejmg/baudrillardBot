@@ -53,8 +53,8 @@ def getQuote():
         quote = PERFECT_CRIME[random.randint(0, len(PERFECT_CRIME) - 1)]
         cite = "The Perfect Crime"
     elif randInt == 2:
-        quote = ECSTASYOFCOMMUNICATION
-        [random.randint(0, len(ECSTASYOFCOMMUNICATION) - 1)]
+        quote = (ECSTASYOFCOMMUNICATION
+                 [random.randint(0, len(ECSTASYOFCOMMUNICATION) - 1)])
         cite = "The Ecstasy of Communication"
     return quote, cite
 
