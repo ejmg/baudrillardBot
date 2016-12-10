@@ -18,6 +18,7 @@ SIMULATE, THIS.
 # the books supported so far
 from txtoutput.PerfectCrime import PERFECT_CRIME
 from txtoutput.Seduction import SEDUCTION
+from txtoutput.EcstasyOfCommunication import ECSTASYOFCOMMUNICATION
 from baudrillardSecret import (CONSUMER_TOKEN, CONSUMER_SECRET, ACCESS_TOKEN,
                                ACCESS_SECRET)
 from nltk import WhitespaceTokenizer
@@ -44,13 +45,17 @@ def getQuote():
     gets a quote from the dictionaries provided. So far only Seduction and
     The Perfect Crime are included.
     """
-    randInt = random.randint(0, 1)
+    randInt = random.randint(0, 2)
     if randInt == 0:
         quote = SEDUCTION[random.randint(0, len(SEDUCTION) - 1)]
         cite = "Seduction"
     elif randInt == 1:
         quote = PERFECT_CRIME[random.randint(0, len(PERFECT_CRIME) - 1)]
         cite = "The Perfect Crime"
+    elif randInt == 2:
+        quote = ECSTASYOFCOMMUNICATION
+        [random.randint(0, len(ECSTASYOFCOMMUNICATION) - 1)]
+        cite = "The Ecstasy of Communication"
     return quote, cite
 
 
@@ -113,7 +118,7 @@ def tweetImage(api, quote, cite):
     longTweet = "{}..."
     maxSize = 140 - len(cite) - 3
     longSize = 140 - 3
-    createImage(quote)
+    createImage(quote, cite)
     if len(quote) > maxSize:
         words = WhitespaceTokenizer().tokenize(quote)
         tweet = ""
@@ -134,7 +139,7 @@ def tweetImage(api, quote, cite):
                               status=shortTweet.format(quote, cite))
 
 
-def createImage(quote):
+def createImage(quote, cite):
     """
     creates an image containing the quote passed to it on one of 4 template
     backgrounds
@@ -154,6 +159,7 @@ def createImage(quote):
     for line in lines:
         draw.text((x / 7, y_text / 5), line, (0, 0, 0), font=font)
         y_text += 100
+    draw.text((x / 7, y_text / 5), "-- {}".format(cite), (0, 0, 0), font=font)
     img.save("../baudrillardBot/draw/output.png")
 
 

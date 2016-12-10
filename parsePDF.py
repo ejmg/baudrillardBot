@@ -17,11 +17,11 @@ def extractTXT(txtFile):
     extracts the text from the textfile inputted from txt/ and outputs a 
     py file with the tokenized sentences in a list in output/
     """
-    inputFile = open("../baudrillardBot/txt/{}".format(txtFile), "r")
+    inputFile = open("../baudrillardBot/rawtxt/{}".format(txtFile), "r")
     data = inputFile.read()
     inputFile.close()
-    var = txtFile[:-3:]
-    output = var + "py"
+    var = txtFile[:-4:]
+    output = var + ".py"
     outputFile  = open("../baudrillardBot/txtoutput/{}".format(output), "w")
 
     detector = nltk.data.load("nltk:tokenizers/punkt/PY3/english.pickle")
