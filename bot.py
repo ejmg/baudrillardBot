@@ -124,6 +124,7 @@ def tweetImage(api, quote, cite):
         tweet = ""
         done = False
         i = 0
+        # will run till tweet is filled or word list somehow runs out...
         while not done:
             if i < len(words):
                 if (len(tweet) + 1 + len(words[i])) < longSize:
@@ -133,6 +134,7 @@ def tweetImage(api, quote, cite):
                     done = True
             else:
                 done = True
+        # chop off extra space at end of sentence before ellipsis is added
         tweet = tweet[:-1:]
         api.update_with_media("../baudrillardBot/draw/output.png",
                               status=longTweet.format(tweet))
