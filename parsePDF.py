@@ -17,7 +17,7 @@ def extractTXT(txtFile):
     extracts the text from the textfile inputted from txt/ and outputs a 
     py file with the tokenized sentences in a list in output/
     """
-    inputFile = open("../baudrillardBot/rawtxt/{}".format(txtFile), "r")
+    inputFile = open("../baudrillardBot/txt/{}".format(txtFile), "r")
     data = inputFile.read()
     inputFile.close()
     var = txtFile[:-4:]
