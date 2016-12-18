@@ -16,7 +16,7 @@ SIMULATE, THIS.
 """
 
 # the books supported so far
-from txtoutput.PerfectCrime import PERFECT_CRIME
+from txtoutput.PerfectCrime import PERFECTCRIME
 from txtoutput.Seduction import SEDUCTION
 from txtoutput.EcstasyOfCommunication import ECSTASYOFCOMMUNICATION
 from txtoutput.SimulacraSimulation import SIMULACRASIMULATION
@@ -51,7 +51,7 @@ def getQuote():
         quote = SEDUCTION[random.randint(0, len(SEDUCTION) - 1)]
         cite = "Seduction"
     elif randInt == 1:
-        quote = PERFECT_CRIME[random.randint(0, len(PERFECT_CRIME) - 1)]
+        quote = PERFECTCRIME[random.randint(0, len(PERFECTCRIME) - 1)]
         cite = "The Perfect Crime"
     elif randInt == 2:
         quote = (ECSTASYOFCOMMUNICATION
