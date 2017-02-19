@@ -30,6 +30,17 @@ def extractTXT(txtFile):
     outputFile.close()
 
 
+def extractCountDown():
+    file = open("../baudrillardBot/rawtxt/coundDown.txt", "w")
+    pdf = open("../baudrillardBot/pdfs/coundDown.pdf", "rb")
+
+    reader = PDF.PdfFileReader(pdf)
+    for page in range(reader.getNumPages()):
+        text = reader.getPage(page).extractText()
+        text = text.replace("\n", "")
+        file.write(text)
+    file.close()
+
 
 def extractPerfectCrime():
     start = 5
@@ -45,8 +56,10 @@ def extractPerfectCrime():
         file.write(text)
     file.close()
 
+
 if __name__ == "__main__":
     # extractPerfectCrime()
-    print("Enter the name of your file to be read")
-    txtFile = input()
-    extractTXT(txtFile)
+    # print("Enter the name of your file to be read")
+    # txtFile = input()
+    # extractTXT(txtFile)
+    extractCountDown()
