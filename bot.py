@@ -54,12 +54,14 @@ def getQuote():
         quote = PERFECTCRIME[random.randint(0, len(PERFECTCRIME) - 1)]
         cite = "The Perfect Crime"
     elif randInt == 2:
-        quote = (ECSTASYOFCOMMUNICATION
-                 [random.randint(0, len(ECSTASYOFCOMMUNICATION) - 1)])
+        quote = (ECSTASYOFCOMMUNICATION[random.randint(
+            0,
+            len(ECSTASYOFCOMMUNICATION) - 1)])
         cite = "The Ecstasy of Communication"
     elif randInt == 3:
-        quote = (SIMULACRASIMULATION[random.
-                                     randint(0, len(SIMULACRASIMULATION) - 1)])
+        quote = (SIMULACRASIMULATION[random.randint(
+            0,
+            len(SIMULACRASIMULATION) - 1)])
         cite = "Simulacra and Simulation"
     return quote, cite
 
@@ -121,8 +123,8 @@ def tweetImage(api, quote, cite):
     """
     shortTweet = "{} - {}"
     longTweet = "{}..."
-    maxSize = 140 - len(cite) - 3
-    longSize = 140 - 3
+    maxSize = 280 - len(cite) - 3
+    longSize = 280 - 3
     createImage(quote, cite)
     if len(quote) > maxSize:
         words = WhitespaceTokenizer().tokenize(quote)
@@ -141,12 +143,14 @@ def tweetImage(api, quote, cite):
                 done = True
         # chop off extra space at end of sentence before ellipsis is added
         tweet = tweet[:-1:]
-        api.update_with_media("../baudrillardBot/draw/output.png",
-                              status=longTweet.format(tweet))
+        api.update_with_media(
+            "../baudrillardBot/draw/output.png",
+            status=longTweet.format(tweet))
 
     else:
-        api.update_with_media("../baudrillardBot/draw/output.png",
-                              status=shortTweet.format(quote, cite))
+        api.update_with_media(
+            "../baudrillardBot/draw/output.png",
+            status=shortTweet.format(quote, cite))
 
 
 def createImage(quote, cite):
